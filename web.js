@@ -2,8 +2,16 @@ var express = require('express');
 
 var app = express.createServer(express.logger());
 
+function readPage(page) {
+	var fs = require("fs");
+	return fs.readFileSync(page, 'utf8');
+}
+
+var webPages = ["./index.html"];
+
 app.get('/', function(request, response) {
-  response.send('Hello BitStarter Application!');
+  var pageContents = readPage(webPages[0]);
+  response.send(pageContents);
 });
 
 var port = process.env.PORT || 5000;
